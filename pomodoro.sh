@@ -2,7 +2,7 @@
 
 already_running() {
 	pid="$(pgrep pomodoro)"
-	if [  "$pid" != "" ]; then
+	if [ "$pid" != "$$" ] ; then
 		echo "Found running instance PID: $pid"
 		exit
 	fi
@@ -63,8 +63,9 @@ if [[ $1 == "" ]]; then
 		echo "Counter =""$(cat ~/.pomodoro_counter)"", take a break!"
 	else
 		echo "active" > ~/.pomodoro_status
-		for i in {0..24}; do
+		for i in {1..25}; do
 			cycle
+			echo "$i" > ~/.pomodoro_remaining_time
 		done && echo $(("$(cat ~/.pomodoro_counter)"+1)) > ~/.pomodoro_counter
 		echo "inactive" > ~/.pomodoro_status
 		echo -e "\nBreak"
