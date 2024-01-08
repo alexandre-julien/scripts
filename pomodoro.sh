@@ -64,8 +64,8 @@ if [[ $1 == "" ]]; then
 	else
 		echo "active" > ~/.pomodoro_status
 		for i in {1..25}; do
+			echo $((25-i)) > ~/.pomodoro_remaining_time
 			cycle
-			echo "$i" > ~/.pomodoro_remaining_time
 		done && echo $(("$(cat ~/.pomodoro_counter)"+1)) > ~/.pomodoro_counter
 		echo "inactive" > ~/.pomodoro_status
 		echo -e "\nBreak"
