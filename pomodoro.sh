@@ -44,14 +44,18 @@ fi
 if [[ $1 == "break" ]]; then
 	if [[ $2 == "short" ]]; then
 		for i in {0..4}; do
+			echo "$((5-i))" > ~/.pomodoro_remaining_time
 			cycle
 		done
 		notify
+		echo "" > ~/.pomodoro_remaining_time
 	elif [[ $2 == "long" ]]; then
 		for i in {0..19}; do
+			echo "$((20-i))" > ~/.pomodoro_remaining_time
 			cycle
 		done
 		notify
+		echo "" > ~/.pomodoro_remaining_time
 	else
 		echo "Need to specify break type, either 'short' or 'long'"
 	fi
