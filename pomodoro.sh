@@ -29,8 +29,6 @@ notify() {
 	notify-send -u critical "Done."
 }
 
-already_running
-
 if [[ $1 != "" ]] && [[ $(echo "$1" | grep -E "reset|break") == "" ]]; then
 	echo "USAGE:"
 	echo "	pomodoro"
@@ -40,6 +38,7 @@ fi
 
 if [[ $1 == "reset" ]]; then
 	reset
+	echo "" > ~/.pomodoro_remaining_time
 fi
 
 if [[ $1 == "break" ]]; then
@@ -58,12 +57,14 @@ if [[ $1 == "break" ]]; then
 	fi
 fi
 
+
 if [[ $1 == "" ]]; then
+	already_running
 	if [[ "$(cat ~/.pomodoro_counter)" -ge 4 ]]; then
 		echo "Counter =""$(cat ~/.pomodoro_counter)"", take a break!"
 	else
 		echo "active" > ~/.pomodoro_status
-		for i in {1..25}; do
+		for i in {0..24}; do
 			echo $((25-i)) > ~/.pomodoro_remaining_time
 			cycle
 		done && echo $(("$(cat ~/.pomodoro_counter)"+1)) > ~/.pomodoro_counter
