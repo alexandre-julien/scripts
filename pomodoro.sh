@@ -15,6 +15,7 @@ refresh_status_bar() {
 reset() {
 	echo "0" > ~/.pomodoro_counter && echo "Pomodo counter reset, done."
 	echo "inactive" > ~/.pomodoro_status
+	echo "" > ~/.pomodoro_remaining_time
 	refresh_status_bar
 }
 
@@ -38,7 +39,6 @@ fi
 
 if [[ $1 == "reset" ]]; then
 	reset
-	echo "" > ~/.pomodoro_remaining_time
 fi
 
 if [[ $1 == "break" ]]; then
@@ -75,5 +75,7 @@ if [[ $1 == "" ]]; then
 		echo "inactive" > ~/.pomodoro_status
 		echo -e "\nBreak"
 		notify-send -u critical "Break"
+		echo "" > ~/.pomodoro_remaining_time
+		refresh_status_bar
 	fi
 fi
