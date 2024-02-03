@@ -47,6 +47,7 @@ while [ "$hours" -ge 0 ]; do
 	done
 	hours=$((hours-1))
 	minutes="59"
+	echo ""
 done
 
 notify-send "Timer done."
